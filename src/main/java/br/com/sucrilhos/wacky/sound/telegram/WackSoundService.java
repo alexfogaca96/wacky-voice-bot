@@ -1,4 +1,4 @@
-package br.com.sucrilhos.wacky.sound.api;
+package br.com.sucrilhos.wacky.sound.telegram;
 
 /**
  * @see https://core.telegram.org/bots/api#sendvoice

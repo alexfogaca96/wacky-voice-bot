@@ -1,4 +1,4 @@
-package br.com.sucrilhos.wacky.sound.api;
+package br.com.sucrilhos.wacky.sound.telegram;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
