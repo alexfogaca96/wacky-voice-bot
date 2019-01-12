@@ -1,2 +1,3 @@
-"# wacky-voice-bot" 
-# Created by https://www.gitignore.io/api/java,gradle,intellij 
+# Wacky Voice Bot
+
+Telegram Bot that transform all audio voices to wacky voices.
