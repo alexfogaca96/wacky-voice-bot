@@ -6,30 +6,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.sucrilhos.wacky.sound.converter.command.ConversionCommand;
+import br.com.sucrilhos.wacky.sound.converter.command.audio.AudioFileConversionCommand;
 import br.com.sucrilhos.wacky.sound.converter.format.AudioFileFormat;
 
 @Component
 public class AudioFileFormatConverter
     implements
-        AudioFormatConverter<File,File>
+        Converter<AudioFileFormat,File,File>
 {
     @Autowired
-    private List<ConversionCommand> conversionCommands;
+    private List<AudioFileConversionCommand> conversionCommands;
 
     @Override
-    public void convert(
+    public File convert(
         final File source,
-        final File target )
+        final AudioFileFormat targetFormat )
         throws ConversionException
     {
-        for( final ConversionCommand conversioncommand : conversionCommands ) {
-            final AudioFileFormat sourceExtension = AudioFileFormat.getFileExtension( source );
-            final AudioFileFormat targetExtension = AudioFileFormat.getFileExtension( target );
-            if( conversioncommand.isSupported( sourceExtension, targetExtension ) ) {
-                conversioncommand.execute( source, target );
-                return;
+        for( final AudioFileConversionCommand conversioncommand : conversionCommands ) {
+            final AudioFileFormat sourceFormat = AudioFileFormat.getFileFormat( source );
+            if( conversioncommand.isSupported( sourceFormat, targetFormat ) ) {
+                return conversioncommand.execute( source, targetFormat );
             }
         }
+        throw new ConversionException( "There's a conflict on our supported formats and converters." );
     }
 }

@@ -10,7 +10,7 @@ import br.com.sucrilhos.wacky.sound.converter.ConversionException;
 public class ConverterExceptionHandler
 {
     @ExceptionHandler( ConversionException.class )
-    public ResponseEntity<String> handleException(
+    public ResponseEntity<String> handleConversionException(
         final ConversionException exception )
     {
         return ResponseEntity.badRequest().body( "Conversion wasn't successful." + exception.getCause() );

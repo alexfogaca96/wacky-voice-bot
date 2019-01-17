@@ -19,14 +19,14 @@ public class AudioFileFormatTest
     public void shouldThrowIllegalArgumentExceptionWhenFileDoesntHaveExtension()
     {
         Mockito.when( file.getName() ).thenReturn( "fileName" );
-        AudioFileFormat.getFileExtension( file );
+        AudioFileFormat.getFileFormat( file );
     }
 
     @Test( expected = IllegalArgumentException.class )
     public void shouldThrowIllegalArgumentExceptionWhenExtensionDoesntCorrespondToAnAudioFileFormat()
     {
         Mockito.when( file.getName() ).thenReturn( "fileName.extensaodementira" );
-        AudioFileFormat.getFileExtension( file );
+        AudioFileFormat.getFileFormat( file );
     }
 
     @Test
@@ -34,7 +34,7 @@ public class AudioFileFormatTest
     {
         final String extension = "ogg";
         Mockito.when( file.getName() ).thenReturn( "fileName.".concat( extension ) );
-        final AudioFileFormat audioFileFormat = AudioFileFormat.getFileExtension( file );
+        final AudioFileFormat audioFileFormat = AudioFileFormat.getFileFormat( file );
         Assert.assertEquals( audioFileFormat.name(), extension.toUpperCase() );
     }
 }

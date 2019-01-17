@@ -1,9 +1,9 @@
 package br.com.sucrilhos.wacky.sound.converter;
 
-public interface AudioFormatConverter<S, T>
+public interface Converter<V, S, T>
 {
-    void convert(
+    T convert(
         S source,
-        T target )
+        V targetType )
         throws ConversionException;
 }

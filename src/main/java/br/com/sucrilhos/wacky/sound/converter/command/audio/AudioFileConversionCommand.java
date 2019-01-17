@@ -1,4 +1,4 @@
-package br.com.sucrilhos.wacky.sound.converter.command;
+package br.com.sucrilhos.wacky.sound.converter.command.audio;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,20 +8,12 @@ import java.io.OutputStream;
 
 import org.apache.commons.io.IOUtils;
 
-import br.com.sucrilhos.wacky.sound.converter.ConversionException;
 import br.com.sucrilhos.wacky.sound.converter.format.AudioFileFormat;
 
-public interface ConversionCommand
+public interface AudioFileConversionCommand
+    extends
+        ConversionCommand<AudioFileFormat,File,File>
 {
-    boolean isSupported(
-        AudioFileFormat source,
-        AudioFileFormat target );
-
-    void execute(
-        File source,
-        File target )
-        throws ConversionException;
-
     default void copyFileTo(
         final File file )
         throws IOException

@@ -22,7 +22,8 @@ public class ConverterController
     @PostMapping(
         path = "/convert",
         consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-        produces = MediaType.APPLICATION_OCTET_STREAM_VALUE )
+        produces = MediaType.APPLICATION_OCTET_STREAM_VALUE,
+        headers = "Cache-Control: private" )
     public ResponseEntity<ByteArrayResource> convertAudioFileFormat(
         @RequestParam( "target.format" ) final AudioFileFormat targetFormat,
         @RequestPart( "source.file" ) final MultipartFile sourceFile )

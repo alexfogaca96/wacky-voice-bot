@@ -28,11 +28,10 @@ public class ConverterServiceImpl
     {
         try {
             final File source = multipartFileToFile( sourceFile );
-            final File target = new File( "temporary.".concat( targetFormat.name().toLowerCase() ) );
-            audioFileFormatConverter.convert( source, target );
+            final File target = audioFileFormatConverter.convert( source, targetFormat );
             return Files.readAllBytes( target.toPath() );
         } catch( IllegalStateException | IOException e ) {
-            throw new RuntimeException();
+            throw new ConversionException( "The conversion wasn't successful." + e.getMessage() );
         }
     }
 }

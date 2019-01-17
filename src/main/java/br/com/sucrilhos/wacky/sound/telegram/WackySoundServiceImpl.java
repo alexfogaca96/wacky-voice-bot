@@ -1,11 +1,9 @@
 package br.com.sucrilhos.wacky.sound.telegram;
 
-import java.io.File;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.sucrilhos.wacky.sound.converter.AudioFormatConverter;
+import br.com.sucrilhos.wacky.sound.converter.AudioFileFormatConverter;
 
 @Component
 public class WackySoundServiceImpl
@@ -13,5 +11,5 @@ public class WackySoundServiceImpl
         WackSoundService
 {
     @Autowired
-    private AudioFormatConverter<File,File> audioFormatConverter;
+    private AudioFileFormatConverter audioFileFormatConverter;
 }
