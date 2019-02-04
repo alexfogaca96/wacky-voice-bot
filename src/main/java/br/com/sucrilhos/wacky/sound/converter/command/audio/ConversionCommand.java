@@ -8,7 +8,7 @@ public interface ConversionCommand<V, S, T>
         V sourceType,
         V targetType );
 
-    T execute(
+    T convert(
         S source,
         V targetType )
         throws ConversionException;

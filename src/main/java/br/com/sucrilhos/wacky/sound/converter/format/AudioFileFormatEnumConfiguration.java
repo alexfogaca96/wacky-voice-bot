@@ -12,8 +12,8 @@ public class AudioFileFormatEnumConfiguration
     @Override
     public FormattingConversionService mvcConversionService()
     {
-        final FormattingConversionService f = super.mvcConversionService();
-        f.addConverter( new AudioFileFormatEnumConverter() );
-        return f;
+        final FormattingConversionService conversionService = super.mvcConversionService();
+        conversionService.addConverter( new AudioFileFormatEnumConverter() );
+        return conversionService;
     }
 }

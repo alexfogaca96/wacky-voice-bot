@@ -2,7 +2,6 @@ package br.com.sucrilhos.wacky.sound.converter.api;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +27,7 @@ public class ConverterServiceImpl
     {
         try {
             final File source = multipartFileToFile( sourceFile );
-            final File target = audioFileFormatConverter.convert( source, targetFormat );
-            return Files.readAllBytes( target.toPath() );
+            return audioFileFormatConverter.convert( source, targetFormat );
         } catch( IllegalStateException | IOException e ) {
             throw new ConversionException( "The conversion wasn't successful." + e.getMessage() );
         }

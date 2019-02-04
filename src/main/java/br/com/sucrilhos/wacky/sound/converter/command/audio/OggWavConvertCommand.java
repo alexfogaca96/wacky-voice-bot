@@ -2,9 +2,6 @@ package br.com.sucrilhos.wacky.sound.converter.command.audio;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -22,7 +19,6 @@ public class OggWavConvertCommand
         AudioFileConversionCommand
 {
     private static final String TEMPORARY_FILES_PATH = "src/main/java/oggwav/";
-    private static final String TEMPORARY_FILE_PATH = TEMPORARY_FILES_PATH.concat( "temporary" );
 
     @Override
     public boolean isSupported(
@@ -36,7 +32,7 @@ public class OggWavConvertCommand
     }
 
     @Override
-    public File execute(
+    public File convert(
         final File source,
         final AudioFileFormat targetType )
         throws ConversionException
@@ -49,22 +45,19 @@ public class OggWavConvertCommand
                 16, sourceFormat.getChannels(), sourceFormat.getChannels() * 2, sourceFormat.getSampleRate(), false );
 
             final AudioInputStream targetAudioInput = AudioSystem.getAudioInputStream( targetFormat, sourceAudioInput );
-            final File target = getNewAudioFile( targetType );
-            AudioSystem.write( targetAudioInput, javax.sound.sampled.AudioFileFormat.Type.WAVE, target );
-            return target;
+            return getAudioInATemporaryFile( targetType, targetAudioInput );
         } catch( UnsupportedAudioFileException | IOException exception ) {
             throw new ConversionException( "[OGG - WAV] or [WAV - OGG] conversion has failed.", exception );
         }
     }
 
-    private static File getNewAudioFile(
-        final AudioFileFormat fileFormat )
+    private static File getAudioInATemporaryFile(
+        final AudioFileFormat targetType,
+        final AudioInputStream targetAudioInput )
         throws IOException
     {
-        final Path path = Paths.get( TEMPORARY_FILE_PATH.concat( fileFormat.name().toLowerCase() ) );
-        if( Files.exists( path ) ) {
-            Files.delete( path );
-        }
-        return new File( path.toString() );
+        final File target = File.createTempFile( TEMPORARY_FILES_PATH, "temp" );
+        AudioSystem.write( targetAudioInput, javax.sound.sampled.AudioFileFormat.Type.WAVE, target );
+        return target;
     }
 }
